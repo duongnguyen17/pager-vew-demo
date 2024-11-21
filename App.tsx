@@ -1,9 +1,9 @@
 import {Button} from '@react-navigation/elements';
 import {createStaticNavigation, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {FlashList} from '@shopify/flash-list';
 import * as React from 'react';
-import {Text, View, useWindowDimensions} from 'react-native';
-import {SceneMap, TabView} from 'react-native-tab-view';
+import {Text, View} from 'react-native';
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -20,32 +20,47 @@ function HomeScreen() {
 
 // ... other code from the previous section
 
-const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#ff4081'}} />;
+// const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#ff4081'}} />;
 
-const SecondRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-);
+// const SecondRoute = () => (
+//   <View style={{flex: 1, backgroundColor: '#673ab7'}} />
+// );
 
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-});
+// const renderScene = SceneMap({
+//   first: FirstRoute,
+//   second: SecondRoute,
+// });
 
-const routes = [
-  {key: 'first', title: 'First'},
-  {key: 'second', title: 'Second'},
+// const routes = [
+//   {key: 'first', title: 'First'},
+//   {key: 'second', title: 'Second'},
+// ];
+
+const DATA = [
+  {
+    title: 'First Item',
+  },
+  {
+    title: 'Second Item',
+  },
 ];
 
 function DetailsScreen() {
-  const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
-
+  // const layout = useWindowDimensions();
+  // const [index, setIndex] = React.useState(0);
+  // return (
+  //   <TabView
+  //     navigationState={{index, routes}}
+  //     renderScene={renderScene}
+  //     onIndexChange={setIndex}
+  //     initialLayout={{width: layout.width}}
+  //   />
+  // );
   return (
-    <TabView
-      navigationState={{index, routes}}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{width: layout.width}}
+    <FlashList
+      data={DATA}
+      renderItem={({item}) => <Text>{item.title}</Text>}
+      estimatedItemSize={200}
     />
   );
 }
